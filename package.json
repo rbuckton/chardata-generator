@@ -1,0 +1,38 @@
+{
+  "name": "chardata-generator",
+  "version": "0.0.0-alpha",
+  "description": "Generates TypeScript source files from the Unicode Character Database",
+  "bin": {
+    "chardata-generator": "bin/chardata-generator"
+  },
+  "scripts": {
+    "compile": "tsc -p ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rbuckton/chardata-generator.git"
+  },
+  "keywords": [
+    "unicode",
+    "ucd",
+    "generator"
+  ],
+  "author": "Ron Buckton <rbuckton@chronicles.org>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/rbuckton/chardata-generator/issues"
+  },
+  "homepage": "https://github.com/rbuckton/chardata-generator#readme",
+  "dependencies": {
+    "event-stream": "^3.3.4",
+    "power-options": "^0.1.15",
+    "source-map-support": "^0.5.3",
+    "chardata-charset": "0.0.0-alpha"
+  },
+  "devDependencies": {
+    "@types/event-stream": "^3.3.33",
+    "@types/node": "^9.4.6",
+    "@types/source-map-support": "^0.4.0",
+    "typescript": "^2.7.1"
+  }
+}
