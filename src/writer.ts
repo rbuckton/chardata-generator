@@ -39,10 +39,10 @@ export class Writer {
     public writePropertyValues(valueCodePointRanges: ReadonlyMap<string, CharSet>, aliases?: PropertyAliases | PropertyValueAliases) {
         const array = Array.from(valueCodePointRanges).sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? +1 : 0);
         for (const [value, codePoints] of array) {
-            const long = aliases && aliases.long(value) || value;
-            this.writePropertyValue(long, codePoints);
+            const short = aliases && aliases.short(value) || value;
+            this.writePropertyValue(short, codePoints);
             if (aliases) {
-                this.writePropertyValueAliasExports(long, aliases);
+                this.writePropertyValueAliasExports(short, aliases);
             }
         }
         this.writeGetCharSet(array, aliases);
@@ -55,20 +55,9 @@ export class Writer {
     private writePropertyValueAliasExports(propertyValue: string, aliases: PropertyAliases | PropertyValueAliases) {
         const all = aliases.all(propertyValue);
         if (!all) return;
-        let first = true;
         for (const name of all) {
             if (name === propertyValue) continue;
-            if (first) {
-                this.write(`export { `);
-                first = false;
-            }
-            else {
-                this.write(`, `);
-            }
-            this.write(`${propertyValue} as ${name}`);
-        }
-        if (!first) {
-            this.writeln(` };`);
+            this.writeln(`export { ${propertyValue} as ${name} };`);
         }
     }
 
@@ -79,12 +68,12 @@ export class Writer {
         this.increaseIndent();
         for (const [value] of valueCodePointRanges) {
             const names = aliases && aliases.all(value) || [value];
-            const long = aliases && aliases.long(value) || value;
+            const short = aliases && aliases.short(value) || value;
             for (const name of names) {
                 this.writeln(`case "${name}":`);
             }
             this.increaseIndent();
-            this.writeln(`return ${long};`);
+            this.writeln(`return ${short};`);
             this.decreaseIndent();
         }
 
