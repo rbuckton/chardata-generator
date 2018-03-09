@@ -49,7 +49,7 @@ export class Writer {
     }
 
     private writePropertyValue(propertyValue: string, codePointRanges: CharSet) {
-        this.writeln(`export const ${propertyValue} = new CharSet(${JSON.stringify(codePointRanges)});`);
+        this.writeln(`export const ${propertyValue} = Object.freeze(CharSet.fromStartLengthArray(${JSON.stringify([...codePointRanges.toStartLengthArray()])}));`);
     }
 
     private writePropertyValueAliasExports(propertyValue: string, aliases: PropertyAliases | PropertyValueAliases) {
@@ -73,7 +73,7 @@ export class Writer {
     }
 
     private writeGetCharSet(valueCodePointRanges: [string, CharSet][], aliases?: PropertyAliases | PropertyValueAliases) {
-        this.writeln(`export default function (value: string): CharSet | undefined {`);
+        this.writeln(`export default function (value: string): ReadonlyCharSet | undefined {`);
         this.increaseIndent();
         this.writeln(`switch (value) {`);
         this.increaseIndent();

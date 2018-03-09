@@ -1,4 +1,4 @@
-import { fetchRows, readRows } from "./fetch";
+import { fetchRows } from "./fetch";
 
 export interface PropertyAlias {
     readonly short: string;

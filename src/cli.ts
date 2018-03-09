@@ -1,11 +1,13 @@
 import * as fs from "fs";
+import * as path from "path";
 import { install } from "source-map-support";
 import { parseCommandLine, CommandLine } from "power-options";
-import * as path from "path";
 import { fetchValues } from "./propertyValues";
 import { Writer } from "./writer";
 import { fetchAliases } from "./aliases";
 import { files } from "./files";
+
+install();
 
 const version = "6.2.0";
 const commandLine = new CommandLine({
@@ -58,7 +60,7 @@ async function main() {
     writer.writeln(`// Unicode ${version} ${options.property}`);
     writer.writeln(`// Derived from: ${source}`);
     if (file.kind === "binary-value" || file.kind === "non-binary-value") {
-        writer.writeln(`import { CharSet } from "ucdata-charset";`);
+        writer.writeln(`import { CharSet, ReadonlyCharSet } from "chardata-charset";`);
         writer.writeln();
         writer.writePropertyValues(valueCodePointRanges,
             file.kind === "non-binary-value" ? aliases.getPropertyValues(file.alias) :
