@@ -6,7 +6,8 @@
     "chardata-generator": "bin/chardata-generator"
   },
   "scripts": {
-    "compile": "tsc -p ./"
+    "compile": "tsc -p ./",
+    "prepublishOnly": "npm run compile"
   },
   "repository": {
     "type": "git",
